@@ -22,18 +22,80 @@ app.get('/ui/van.png', function (req, res) {
 });
 
 app.get('/article-one', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+  //res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+  res.send( createTemplate(createArticleContent("One")) );
 });
 
 app.get('/article-two', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+  //res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+  res.send(createTemplate(createArticleContent("Two")) );
 });
 
 app.get('/article-three', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+  res.send(createTemplate(createArticleContent("Three")) );
+  //res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
 });
 
 var port = 8080; // Use 8080 for local development because you might already have apache running on 80
 app.listen(8080, function () {
   console.log(`IMAD course app listening on port ${port}!`);
 });
+
+
+function createArticleContent(artNum){
+
+var articleContent = {
+	title : `Article ${artNum} | Vijay Anand Ganesan`,
+	heading : `Article ${artNum}`,
+	date : `September 2016 - From Refacored JS : | ${artNum}`,
+	content : `
+	<p>
+	This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.
+	This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.
+</p>
+<p>
+	This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.
+	This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.
+</p>
+<p>
+	This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.
+	This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.This is a test article ${artNum}  content.
+</p>`
+};
+return articleContent;
+};
+
+
+
+function createTemplate (data) {
+var content = data.content;
+var date = data.date;
+var heading = data.heading;
+var title = data.title;
+
+var templateHtml = `<html>
+<head>
+<link href="/ui/style.css" rel="stylesheet" />
+<title>${title}</title>
+</head>
+<body>
+<div>
+	<a href="/">Home</a>
+</div>
+<hr>
+<div class="container">
+<div>
+<h3>${heading}</h3>
+</div>
+<div>
+<h3>${date}</h3>
+</div>
+<div>
+${content}
+</div>
+</div>
+</body>
+</html>
+`;
+return templateHtml;
+};
