@@ -21,20 +21,12 @@ app.get('/ui/van.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'van.png'));
 });
 
-app.get('/article-one', function (req, res) {
+app.get('/article-:articleNum', function (req, res) {
   //res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
-  res.send( createTemplate(createArticleContent("One")) );
+  var articleNum = req.params.articleNum;
+  res.send( createTemplate(createArticleContent(articleNum)) );
 });
 
-app.get('/article-two', function (req, res) {
-  //res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
-  res.send(createTemplate(createArticleContent("Two")) );
-});
-
-app.get('/article-three', function (req, res) {
-  res.send(createTemplate(createArticleContent("Three")) );
-  //res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
-});
 
 var port = 8080; // Use 8080 for local development because you might already have apache running on 80
 app.listen(8080, function () {
